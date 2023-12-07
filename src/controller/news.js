@@ -1,66 +1,78 @@
 const path = require("path");
 const filePathNews = path.join(__dirname, "../controller/news.json");
+const news = require("../models/news");
 const fs = require("fs");
+const { Sequelize } = require("sequelize");
 const fss = require("fs").promises;
 
-const getAllnews = (req, res, next) => {
-  let articles = [];
-  fs.readFile(filePathNews, "utf8", (err, jsonString) => {
-    if (err) {
-      console.log("Error reading file from disk:", err);
-      res.status(500).json({ error: "Error reading JSON file" });
-      return;
-    }
-    try {
-      articles = JSON.parse(jsonString);
-      res.json({ articles });
-    } catch (err) {
-      console.log("Error parsing JSON string:", err);
-      res.status(500).json({ error: "Error parsing JSON string" });
-    }
-  });
+const getAllNews = async (req, res, next) => {
+  try {
+    const allNews = await news.findAll();
+    res.status(200).json(allNews);
+  } catch (err) {
+    console.error(err);
+    // Jangan lupa untuk menangani kesalahan dan memberikan respons yang sesuai
+    res.status(500).json({ error: `Internal Server Error: ${err}` });
+  }
+};
+
+const newsToDb = async (req, res, next) => {
+  try {
+    //untuk ambil file JSON
+    const jsonData = fs.readFileSync(filePathNews, "utf8");
+    const articlesData = JSON.parse(jsonData);
+
+    //ngirim data JSON ke DB
+    await news.bulkCreate(articlesData, { ignoreDuplicates: true });
+    res.json({ message: "Successfully Send to DB" });
+  } catch (error) {
+    console.error("Error: ", error);
+    res.status(500).json({
+      error: "Failed to read JSON file",
+    });
+  }
 };
 
 const getNewsByCategory = async (req, res, next) => {
   const category = req.params.category;
 
   try {
-    const data = await fss.readFile(filePathNews, { encoding: "utf8" });
-    const articles = JSON.parse(data);
-    const filteredArticles = articles.filter(
-      (articles) => articles.category === category
-    );
+    const filteredArticles = await news.findAll({
+      where: {
+        category: category,
+      },
+    });
 
     res.json(filteredArticles);
   } catch (error) {
-    console.error("Error reading file:", error.message);
+    console.error("Query Error: ", error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
-const getNewsBySearch = async (req, res) => {
+const getNewsBySearch = async (req, res, next) => {
   const searchKeywords = req.params.keyword;
 
   try {
-    const data = await fss.readFile(filePathNews, { encoding: "utf8" });
-    const articles = JSON.parse(data);
-
-    // Filter articles
-    const filteredArticles = articles.filter(
-      (articles) =>
-        articles.title.includes(searchKeywords) ||
-        articles.description.includes(searchKeywords)
-    );
+    const filteredArticles = await news.findAll({
+      where: {
+        [Sequelize.Op.or]: [
+          { title: { [Sequelize.Op.like]: `%${searchKeywords}%` } },
+          { description: { [Sequelize.Op.like]: `%${searchKeywords}%` } }
+        ]
+      }
+    });
 
     res.json(filteredArticles);
   } catch (error) {
-    console.error("Error reading file:", error.message);
+    console.error("Query Error: ", error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
-};
+}
 
 module.exports = {
-  getAllnews,
+  getAllNews,
+  newsToDb,
   getNewsByCategory,
   getNewsBySearch,
 };

@@ -1,9 +1,5 @@
 [
   {
-    "source": {
-      "id": null,
-      "name": "Feber.se"
-    },
     "author": "Bobby Green",
     "title": "Hur är folieringen Tesla erbjuder?",
     "description": "Inte värd 8000 dollar...\n\n\n\n\n\n\n\n\n\n\nFör ett tag sedan skrev vi att Tesla börjat erbjuda att man kan få sin Model 3 eller Model Y helfolierad direkt från dem. Det kan ju vara bekvämt så att bilen är \"klar\" när man får den och inte behöver köra den till ytterlig…",
@@ -14,10 +10,6 @@
     "category": "sports"
   },
   {
-    "source": {
-      "id": "t3n",
-      "name": "T3n"
-    },
     "author": null,
     "title": "Reichweite von Elektroautos im Winter? Viel Lärm um nichts!",
     "description": "Elektroautos haben im Winter eine geringere Reichweite. Das ist seit vielen Jahren bekannt – und im Alltag meist völlig unproblematisch.weiterlesen auf t3n.de",
@@ -28,10 +20,6 @@
     "category": "politic"
   },
   {
-    "source": {
-      "id": null,
-      "name": "Biztoc.com"
-    },
     "author": "marketbeat.com",
     "title": "Alibaba is down more than 10% since earnings, now what?",
     "description": "There are deals, and there are deals, and in the world of internet stocks, Alibaba NYSE: BABA is the one stock sticking out like a sore thumb. At prices below $80.0 a share, the only thing you can hope for this stock is to skyrocket to meet its fair value, wh…",
@@ -42,10 +30,6 @@
     "category": "entertainment"
   },
   {
-    "source": {
-      "id": null,
-      "name": "PC Gamer"
-    },
     "author": "Jeremy Laird",
     "title": "Nvidia sells half a million AI chips in just three months netting $10 billion-plus",
     "description": "We've created a monster, people.",
@@ -56,10 +40,6 @@
     "category": "technology"
   },
   {
-    "source": {
-      "id": null,
-      "name": "Faker News"
-    },
     "author": "John Doe",
     "title": "Exciting Sports Event",
     "description": "A thrilling sports event took place recently...",
@@ -70,10 +50,6 @@
     "category": "sports"
   },
   {
-    "source": {
-      "id": null,
-      "name": "Faker Tribune"
-    },
     "author": "Jane Smith",
     "title": "Political Developments Unfold",
     "description": "Recent political developments have significant impact...",
@@ -84,10 +60,6 @@
     "category": "politic"
   },
   {
-    "source": {
-      "id": null,
-      "name": "Faker Gazette"
-    },
     "author": "Alex Johnson",
     "title": "Entertainment Buzz",
     "description": "The latest buzz in the entertainment world...",
@@ -98,10 +70,6 @@
     "category": "entertainment"
   },
   {
-    "source": {
-      "id": null,
-      "name": "FakerTech"
-    },
     "author": "Chris Williams",
     "title": "Innovations in Technology",
     "description": "Discover the latest technological innovations...",
@@ -112,10 +80,6 @@
     "category": "technology"
   },
   {
-    "source": {
-      "id": null,
-      "name": "Faker Sports Weekly"
-    },
     "author": "Michael Brown",
     "title": "Key Moments in Sports",
     "description": "Recap of key moments in the world of sports...",
@@ -126,10 +90,6 @@
     "category": "sports"
   },
   {
-    "source": {
-      "id": null,
-      "name": "Faker Observer"
-    },
     "author": "Emily Davis",
     "title": "Political Analysis",
     "description": "In-depth analysis of recent political events...",
@@ -140,10 +100,6 @@
     "category": "politic"
   },
   {
-    "source": {
-      "id": null,
-      "name": "Faker Times"
-    },
     "author": "David Clark",
     "title": "Entertainment Spotlight",
     "description": "Spotlight on the latest entertainment happenings...",
@@ -154,10 +110,6 @@
     "category": "entertainment"
   },
   {
-    "source": {
-      "id": null,
-      "name": "TechFaker"
-    },
     "author": "Jessica Taylor",
     "title": "Tech Trends to Watch",
     "description": "Explore the upcoming technology trends...",
@@ -168,10 +120,6 @@
     "category": "technology"
   },
   {
-    "source": {
-      "id": null,
-      "name": "Faker Sports Express"
-    },
     "author": "Ryan Miller",
     "title": "Sports Roundup",
     "description": "Roundup of the latest sports news and scores...",
@@ -182,10 +130,6 @@
     "category": "sports"
   },
   {
-    "source": {
-      "id": null,
-      "name": "Faker Politics Journal"
-    },
     "author": "Olivia White",
     "title": "Political Debates Unfold sports",
     "description": "Highlights from recent political debates...",
