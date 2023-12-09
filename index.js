@@ -1,4 +1,6 @@
 const express = require("express");
+const news = require("./src/models/news");
+const comments = require("./src/models/comments");
 const path = require("path");
 const cors = require("cors");
 
@@ -10,6 +12,7 @@ app.use(cors());
 const newsRouter = require("./src/routes/news");
 const commentRouter = require("./src/routes/comments");
 const dbConnection = require("./src/config/database");
+const feedBackController = require("./src/routes/feedBack");
 // const usersRouter = require("./src/routes/users");
 
 app.use(express.json());
@@ -19,12 +22,24 @@ app.get("/", (req, res, next) => {
 });
 
 app.use(newsRouter);
-// app.use(commentRouter);
+app.use(commentRouter);
+app.use(feedBackController);
 // app.use(usersRouter);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Something went wrong!');
+  res.status(500).send("Something went wrong!");
+});
+
+comments.belongsTo(news, {
+  foreignKey: "news_id",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+});
+news.hasMany(comments, {
+  foreignKey: "news_id",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
 });
 
 dbConnection

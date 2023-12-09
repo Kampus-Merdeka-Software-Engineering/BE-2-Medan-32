@@ -1,9 +1,9 @@
 const path = require("path");
 const filePathNews = path.join(__dirname, "../controller/news.json");
+const {News} = require("../models/news");
 const news = require("../models/news");
 const fs = require("fs");
 const { Sequelize } = require("sequelize");
-const fss = require("fs").promises;
 
 const getAllNews = async (req, res, next) => {
   try {
@@ -11,8 +11,22 @@ const getAllNews = async (req, res, next) => {
     res.status(200).json(allNews);
   } catch (err) {
     console.error(err);
-    // Jangan lupa untuk menangani kesalahan dan memberikan respons yang sesuai
     res.status(500).json({ error: `Internal Server Error: ${err}` });
+  }
+};
+
+const detailNews = async (req, res, next) => {
+  const detailArticle = req.params.id;
+  try {
+    const filteredArticles = await news.findAll({
+      where: {
+        id: detailArticle,
+      },
+    });
+    res.status(200).json(filteredArticles);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: `Internal Server Error: ${error}` });
   }
 };
 
@@ -33,6 +47,17 @@ const newsToDb = async (req, res, next) => {
   }
 };
 
+const deleteNewsDb = async (req, res) => {
+  try {
+    await news.destroy();
+
+    return res.status(200).json({ message: `News deleted` })
+  } catch (error) {
+    console.error("Query Error: ", error.message);
+    res.status(500).json({ error: `Internal Server Error: ${error}` });
+  }
+};
+
 const getNewsByCategory = async (req, res, next) => {
   const category = req.params.category;
 
@@ -46,7 +71,7 @@ const getNewsByCategory = async (req, res, next) => {
     res.json(filteredArticles);
   } catch (error) {
     console.error("Query Error: ", error.message);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: `Internal Server Error: ${error}` });
   }
 };
 
@@ -58,21 +83,25 @@ const getNewsBySearch = async (req, res, next) => {
       where: {
         [Sequelize.Op.or]: [
           { title: { [Sequelize.Op.like]: `%${searchKeywords}%` } },
-          { description: { [Sequelize.Op.like]: `%${searchKeywords}%` } }
-        ]
-      }
+          { description: { [Sequelize.Op.like]: `%${searchKeywords}%` } },
+        ],
+      },
     });
 
     res.json(filteredArticles);
   } catch (error) {
     console.error("Query Error: ", error.message);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: `Internal Server Error: ${error}` });
   }
-}
+};
 
 module.exports = {
   getAllNews,
   newsToDb,
+  deleteNewsDb,
+  detailNews,
   getNewsByCategory,
   getNewsBySearch,
+  //getHotNews
+  //getOtherNews
 };

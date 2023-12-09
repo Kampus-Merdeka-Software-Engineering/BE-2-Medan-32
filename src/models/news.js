@@ -2,7 +2,7 @@ const dbConnection = require("../config/database.js");
 const { DataTypes } = require('sequelize');
 // const sequelize = require('../sequelize');
 
-const news = dbConnection.define("news",{
+const News = dbConnection.define("news",{
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -23,4 +23,4 @@ const news = dbConnection.define("news",{
   }
 );
 
-module.exports = news;
+module.exports = News;

@@ -1,20 +1,11 @@
-const express = require('express');
+const express = require("express");
+const commentsController = require("../controller/comments");
 const router = express.Router();
 
-router.get("/comments", (req, res)=> {
-    res.send({ data: "Here your comments" });
-});
-
-router.post("/comments", (req, res)=> {
-    res.send({ data: "your comment posted" });
-});
-
-router.put("/comments", (req, res)=> {
-    res.send({ data: "Your comment updated" });
-});
-
-router.delete("/comments", (req, res)=> {
-    res.send({ data: "Your comment deleted" });
-});
+router.get("/comments", commentsController.getAllComments);
+router.get("/news/:news_id/comments", commentsController.getAllCommentsByIdNews);
+router.post("/news/:news_id/comments", commentsController.createCommentOnNews);
+router.patch("/news/comments/:id", commentsController.editComment);
+router.delete("/news/comments/:id", commentsController.deleteComment);
 
 module.exports = router;
