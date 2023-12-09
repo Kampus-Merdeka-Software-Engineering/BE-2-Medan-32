@@ -3,6 +3,7 @@ const news = require("./src/models/news");
 const comments = require("./src/models/comments");
 const path = require("path");
 const cors = require("cors");
+require("dotenv").config();
 
 const PORT = process.env.PORT || 4000;
 
@@ -46,6 +47,7 @@ dbConnection
   .sync({ alter: true })
   .then(() => {
     console.log("Database connected");
+    console.log(PORT);
 
     app.listen(PORT, () => {
       console.log(`Server running on port http://localhost:${PORT}`);
