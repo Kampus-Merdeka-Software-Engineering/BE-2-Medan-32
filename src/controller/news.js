@@ -1,6 +1,6 @@
 const path = require("path");
 const filePathNews = path.join(__dirname, "../controller/news.json");
-const {News} = require("../models/news");
+const { News } = require("../models/news");
 const news = require("../models/news");
 const fs = require("fs");
 const { Sequelize } = require("sequelize");
@@ -51,7 +51,7 @@ const deleteNewsDb = async (req, res) => {
   try {
     await news.destroy();
 
-    return res.status(200).json({ message: `News deleted` })
+    return res.status(200).json({ message: `News deleted` });
   } catch (error) {
     console.error("Query Error: ", error.message);
     res.status(500).json({ error: `Internal Server Error: ${error}` });
@@ -76,7 +76,10 @@ const getNewsByCategory = async (req, res, next) => {
 };
 
 const getNewsBySearch = async (req, res, next) => {
-  const searchKeywords = req.params.keyword;
+  const searchKeywords = req.query.keyword;
+
+  console.log(req.query);
+  console.log(searchKeywords);
 
   try {
     const filteredArticles = await news.findAll({
