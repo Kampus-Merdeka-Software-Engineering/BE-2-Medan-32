@@ -18,7 +18,6 @@ const Comments = dbConnection.define(
         model: "news",
         key: "id",
         onDelete: "CASCADE",
-        onUpdate: "CASCADE",
       },
     },
   },

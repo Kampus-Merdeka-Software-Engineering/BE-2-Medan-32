@@ -49,7 +49,9 @@ const newsToDb = async (req, res, next) => {
 
 const deleteNewsDb = async (req, res) => {
   try {
-    await news.destroy();
+    await news.destroy({
+      where: {},
+    });
 
     return res.status(200).json({ message: `News deleted` });
   } catch (error) {

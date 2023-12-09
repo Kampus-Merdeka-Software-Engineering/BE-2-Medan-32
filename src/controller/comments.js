@@ -94,9 +94,14 @@ const editComment = async (req, res, next) => {
 
 const deleteComment = async (req, res, next) => {
   try {
-    
+    const { id } = req.params;
+    const commentToDelete = await Comments.findByPk(id);
+
+    await commentToDelete.destroy();
+    res.status(200).json({ message: "Comment deleted" });
   } catch (error) {
-    
+    console.error(error);
+    res.status(500).json({ error: `Internal Server Error: ${error}` });
   }
 };
 
