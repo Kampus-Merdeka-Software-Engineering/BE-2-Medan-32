@@ -80,9 +80,6 @@ const getNewsByCategory = async (req, res, next) => {
 const getNewsBySearch = async (req, res, next) => {
   const searchKeywords = req.query.keyword;
 
-  console.log(req.query);
-  console.log(searchKeywords);
-
   try {
     const filteredArticles = await news.findAll({
       where: {
@@ -100,13 +97,65 @@ const getNewsBySearch = async (req, res, next) => {
   }
 };
 
+const getLatestNews = async (req, res, next) => {
+  try {
+    let limit = parseInt(req.query.limit) || 3;
+
+    const latestNews = await news.findAll({
+      limit: limit,
+      order: [["publishedAt", "DESC"]],
+    });
+
+    res.json(latestNews);
+  } catch (error) {
+    console.error("Query Error: ", error.message);
+    res.status(500).json({ error: `Internal Server Error: ${error}` });
+  }
+};
+
+const getOtherNewsOnArticle = async (req, res, next) => {
+  try {
+    let limit = parseInt(req.query.limit) || 5;
+
+    const otherNews = await news.findAll({
+      where: {
+        id: {
+          [Sequelize.Op.not]: req.params.id, // Menghindari berita dengan ID yang sedang diakses
+        },
+      },
+      order: [Sequelize.literal('RAND()')], // Mengambil berita secara acak
+      limit: limit,
+    });
+    res.status(200).json(otherNews);
+  } catch (error) {
+    console.error("Query Error: ", error.message);
+    res.status(500).json({ error: `Internal Server Error: ${error}` });
+  }
+}
+
+const getOtherNews = async (req, res, next) => {
+  try {
+    let limit = parseInt(req.query.limit) || 5;
+
+    const otherNews = await news.findAll({
+      order: [Sequelize.literal('RAND()')], // Mengambil berita secara acak
+      limit: limit,
+    });
+    res.status(200).json(otherNews);
+  } catch (error) {
+    console.error("Query Error: ", error.message);
+    res.status(500).json({ error: `Internal Server Error: ${error}` });
+  }
+}
+
 module.exports = {
   getAllNews,
-  newsToDb,
-  deleteNewsDb,
   detailNews,
   getNewsByCategory,
   getNewsBySearch,
-  //getHotNews
-  //getOtherNews
+  getLatestNews,
+  getOtherNews,
+  getOtherNewsOnArticle,
+  newsToDb,
+  deleteNewsDb,
 };
